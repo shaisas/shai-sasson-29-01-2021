@@ -1,0 +1,30 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin font-big() {
+  // 24px
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+
+@mixin font-medium() {
+  // 18px
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+}
+
+@mixin font-medium-small() {
+  // 16px
+  font-size: 1rem;
+  line-height: 1.1875rem;
+}
+
+@mixin font-small() {
+  // 14px
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+}
