@@ -1,43 +1,46 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
+const apiUrl =
+  process.env.SERVER_API ||
+  "https://shai-sasson-mail-app-server.herokuapp.com/";
 
 const state = () => ({
-  user: null,
-  isLoggedIn: false
+  token: null
 });
 
 const getters = {
   isLoggedIn: state => {
-    return !!state.user;
+    return !!state.token;
+  },
+  user: state => {
+    return jwt.decode(state.token);
   }
 };
 
 const mutations = {
-  user(state, user) {
-    state.user = user;
+  token(state, token) {
+    state.token = token;
   }
 };
 
 const actions = {
   async signUp({ commit }, { name, id }) {
     try {
-      const { data } = await axios.post("http://127.0.0.1:3000/auth/signup", {
+      const { data } = await axios.post(apiUrl + "auth/signup", {
         name,
         id
       });
-      const user = jwt.decode(data.token);
-      commit("user", user);
+      commit("token", data.token);
     } catch (e) {
       throw new Error(e?.response?.data?.error || "please try again later");
     }
   },
   async login({ commit }, { id }) {
     try {
-      const { data } = await axios.post("http://127.0.0.1:3000/auth/login", {
+      const { data } = await axios.post(apiUrl + "auth/login", {
         id
       });
-      const user = jwt.decode(data.token);
-      commit("user", user);
+      commit("token", data.token);
     } catch (e) {
       throw new Error(e?.response?.data?.error || "please try again later");
     }

@@ -12,14 +12,16 @@ signUpSchema = {
 createMailSchema = {
     receiverId: joi.string().required(),
     subject: joi.string().allow(null, ''),
-    paragraph: joi.string().allow(null, '')
+    paragraph: joi.string().allow(null, ''),
+    token: joi.string().required()
 }
 
 editMailSchema = {
     toUpdate: joi.object({
         key: joi.string().valid(...['isRead', 'isFavorites', 'isDeleted']),
         value: joi.boolean()
-    })
+    }),
+    token: joi.string().required()
 }
 
 const validateLogin = (req, res, next) => {
